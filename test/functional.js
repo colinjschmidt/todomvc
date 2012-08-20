@@ -44,13 +44,8 @@ describe('TodoMVC App', function() {
 	  
 	  it('autofocuses on the #new-todo input field', function() {
 	  	
-	  	var $element,
-	  		hasFocus = false;
-
-	  	$element = $('input#new-todo:first');
-	  	hasFocus = $element.is(':focus');
-
-	  	expect(hasFocus).toBe(true);
+	  	$focused = $( document.activeElement ).first().attr('id');
+      expect($focused).toBe('new-todo');
 
 	  });
 
@@ -121,15 +116,9 @@ describe('TodoMVC App', function() {
 	  });
 
 	  it('regains focus after adding a new todo', function() {
-      
-      var $element,
-	  		hasFocus = false;
 
-	  	$element = $('input#new-todo:first');
-	  	hasFocus = $element.is(':focus');
-
-	  	expect(hasFocus).toBe(true);
-
+      $focused = $( document.activeElement ).first().attr('id');
+      expect($focused).toBe('new-todo');
 	  });
 
   });
