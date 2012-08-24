@@ -1,8 +1,4 @@
-console.log('testing');
-
-phantom.libraryPath = '/home/ec2-user/todomvc/assets';
-
-var TEST_DIR = '/home/ec2-user/todomvc/architecture-examples';
+var TEST_DIR = '/home/ec2-user/todomvc/test/functional-tests';
 
 var page = require('webpage').create(), 
   fs = require('fs'),
@@ -21,7 +17,6 @@ for (var i = 0, len = apps.length; i < len; i++) {
   var fullPath = TEST_DIR + fs.separator + apps[i];
   var indexFile = fullPath + fs.separator + 'index.html';
   if (fs.isFile(indexFile)) {  
-    console.log(indexFile);
     pages.push(indexFile);
   }
 }
@@ -38,29 +33,38 @@ var interval = setInterval(function() {
     }
 }, 250);
 
+page.onConsoleMessage = function (msg) { console.log(msg); };
+
+page.onError = function (msg, trace) {
+    console.log(msg);
+    trace.forEach(function(item) {
+        console.log('  ', item.file, ':', item.line);
+    })
+};
+
 page.onLoadStarted = function() {
     loadInProgress = true;
-    console.log('page ' + (pageindex + 1) + ' load started');
 };
 
 page.onLoadFinished = function() {
+
+   setTimeout(function(){ 
+
+      var title = page.evaluate(function () {
+        return $('title:first').text();  
+      });
+
+      var results = page.evaluate(function() {
+        return $('#HTMLReporter ul.symbolSummary:first').html();
+        //return jasmine.getEnv().currentRunner().suites_[0].description;
+      });
     
-    var s = phantom.injectJs("jquery.min.js");
+      console.log(title);
+      console.log('results:');
+      console.log(results);
 
-    console.log(s);
-    /*
-    page.injectJs("jasmine/jasmine.js");
-    page.injectJs("jasmine/jasmine-html.js");
-    page.injectJs("../test/functional.js");
-    */
-    var title = page.evaluate(function () {
-        return $('title:first').text();
-    });
-    
-    console.log('test - ' + title);
+      pageindex++;
 
-    console.log('page ' + (pageindex + 1) + ' load finished');
-    pageindex++;
-
-    loadInProgress = false;
+      loadInProgress = false;
+   }, 200);
 }
