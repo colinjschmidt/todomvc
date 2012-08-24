@@ -4,8 +4,8 @@ var page = require('webpage').create(),
   apps = [],
   pages = [];
 
-console.log(fs.absolute('functional-tests'));
-var TEST_DIR = fs.absolute('functional-tests');
+console.log(fs.absolute('test/functional-tests'));
+var TEST_DIR = fs.absolute('test/functional-tests');
 
 apps = fs.list(TEST_DIR);
 
