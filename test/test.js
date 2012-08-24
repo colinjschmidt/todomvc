@@ -1,4 +1,4 @@
-var TEST_DIR = '/home/ec2-user/todomvc/test/functional-tests';
+var TEST_DIR = './functional-tests';
 
 var page = require('webpage').create(), 
   fs = require('fs'),
