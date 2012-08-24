@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="../../assets/base.css"/>
 	<link rel="stylesheet" href="../../assets/jasmine/jasmine.css">
 	<script>
-		localStorage.remove('todos-jquery');
+		localStorage.removeItem('todos-jquery');
 	</script>
 </head>
 <body>
@@ -90,5 +90,9 @@
             var app = new Y.TodoMVC.TodoApp();
         });
     </script>
+    <script src="../../assets/jquery.min.js"></script>
+	<script src="../../assets/jasmine/jasmine.js"></script>
+	<script src="../../assets/jasmine/jasmine-html.js"></script>
+	<script src="../../test/functional.js"></script>
 </body>
 </html>
