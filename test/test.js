@@ -1,10 +1,10 @@
-var TEST_DIR = './functional-tests';
-
 var page = require('webpage').create(), 
   fs = require('fs'),
   loadInProgress = false,
   apps = [],
   pages = [];
+
+var TEST_DIR = fs.workingDirectory + '/functional-tests';
 
 apps = fs.list(TEST_DIR);
 
