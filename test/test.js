@@ -21,6 +21,8 @@ for (var i = 0, len = apps.length; i < len; i++) {
   }
 }
 
+console.log('Testing ' + pages.length + 'todo apps!');
+
 var pageindex = 0;
 
 var interval = setInterval(function() {
