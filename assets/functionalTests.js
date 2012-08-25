@@ -106,6 +106,7 @@ describe('TodoMVC App', function() {
       // focused on the $new-todo input field
 	    $event = $.Event("keypress");
 	    $event.which = 13;
+	    $event.keyCode = 13;
 	    $input.trigger($event);
       
       // Get the number of todos in the todo-list
@@ -174,25 +175,25 @@ describe('TodoMVC App', function() {
 
 describe( 'TodoMVC features.', function(){
 
-	var enterEvent = $.Event('keyup', { keyCode: 13 });
+	var enterEvent = $.Event('keypress', { which: 13, keyCode: 13 });
 	var todoTitle = 'Foo Bar Todo';
 
 	describe( 'Todo creation:', function() {
 
-		beforeEach( function(){
+		beforeEach( function() {
 			// Make sure we are always on the main screen
 			window.location.hash = '#/';
 		});
 
 		it( 'should allow creating a new todo' , function() {
-			runs( function(){
-				$( '#new-todo' ).val( todoTitle ).trigger( enterEvent );	
+			runs( function() {
+				$( '#new-todo' ).val( todoTitle ).trigger( enterEvent );
 			});
 
-			waits( 100 );
+			waits( 500 );
 			
 			runs( function() {
-				!!$( '#todo-list li' ).text().match( todoTitle );
+				expect( $( '#todo-list li' ).text()).toMatch( todoTitle );
 			});
 		});
 

@@ -77,7 +77,13 @@
 	<script src="js/controllers/todos.js"></script>
 	<script src="js/views/application.js"></script>
 	<script src="js/views/todos.js"></script>
-	<script src="../../../assets/jquery.min.js"></script>
+	<script>
+      if (typeof jQuery === 'undefined') {
+          var script = document.createElement('script');
+          script.src = '../../../assets/jquery.min.js';
+          document.getElementsByTagName('body')[0].appendChild(script);
+      }
+    </script>
 	<script src="../../../assets/jasmine/jasmine.js"></script>
 	<script src="../../../assets/jasmine/jasmine-html.js"></script>
 	<script src="../../../assets/functionalTests.js"></script>
