@@ -1,181 +1,15 @@
-/*
-describe('TodoMVC App', function() {
-
-	describe('Initial state without any todos', function() {
-
-		it("contains one section tag with id of todoapp", function() {
-	    
-	    var $elements;
-
-	    $elements = $('section#todoapp');
-	    expect($elements.length).toBe(1);
-
-	  });
-
-	  it("contains one header tag with id of header", function() {
-	    
-	    var $elements;
-
-	    $elements = $('header#header');
-	    expect($elements.length).toBe(1);
-
-	  });
-
-	  it("contains one footer tag with id of footer", function() {
-	    
-	    var $elements;
-
-	    $elements = $('footer#footer');
-	    expect($elements.length).toBe(1);
-
-	  });
-
-	  it('contains the text \'todos\' inside an h1 tag', function() {
-	    
-	    var $element,
-	      text;
-	    
-	    // Get the h1 element's text
-	    $element = $('header h1:first');
-	    text = $element.text();
-	    
-	    expect(text).toBe('todos');
-
-	  });
-	  
-	  it('autofocuses on the #new-todo input field', function() {
-	  	
-	  	$focused = $( document.activeElement ).first().attr('id');
-      expect($focused).toBe('new-todo');
-
-	  });
-
-	  it('hides the #main and #footer elements when there are no todos', function() {
-	  	
-	  	var $main,
-	  	  $footer,
-	  	  mainVisible,
-	  	  footerVisible;
-
-	  	$main = $('#main');
-	  	mainVisible = $main.is(':visible');
-
-	  	$footer = $('#footer');
-	  	footerVisible = $footer.is(':visible');
-
-	  	expect(mainVisible).toBe(false);
-	  	expect(footerVisible).toBe(false);
-
-	  });
-
-	});
-
-  describe('The #new-todo input field', function() {
-    
-    it('contains the placeholder text \'What needs to be done?\'', function() {
-
-      var $input,
-        placeholder;
-
-      $input = $('input#new-todo:first');
-      placeholder = $input.attr('placeholder');
-
-      expect(placeholder).toBe('What needs to be done?');
-    }); 
-
-	  it('adds a todo by pressing the enter key', function() {
-	    
-	    var $input,
-	      $event,
-	      $todoList,
-	      lengthBefore,
-	      lengthAfter;
-	    
-	    // Get the #todo-list element 
-	    // and determine the number of list items
-	    $todoList = $('ul#todo-list:first');
-	    lengthBefore = $todoList.find('li').length;
-      
-      // Get the #new-post input field
-      // and set the value to 'test'
-	    $input = $('input#new-todo');
-	    $input.val('test');
-
-      // Create a new jQuery Event representing
-      // a user pressing the enter key while 
-      // focused on the $new-todo input field
-	    $event = $.Event("keypress");
-	    $event.which = 13;
-	    $event.keyCode = 13;
-	    $input.trigger($event);
-      
-      // Get the number of todos in the todo-list
-	    lengthAfter = $todoList.find('li').length;
-      
-      // Verify that there is one more todo than there used to be
-	    expect(lengthAfter).toBe(lengthBefore + 1);
-
-	  });
-
-	  it('regains focus after adding a new todo', function() {
-
-      $focused = $( document.activeElement ).first().attr('id');
-      expect($focused).toBe('new-todo');
-	  });
-
-  });
-
-  describe('The footer element once a todo item exists', function() {
-
-    it ('is visible', function() {
-
-      var $footer,
-        isVisible;
-
-      $footer = $('footer#footer:first');
-      isVisible = $footer.is(':visible');
-
-      expect(isVisible).toBe(true);
-    });
-
-    it ('contains a span#todo-count element with the text \'1 item left\'', function() {
-
-      var $span,
-        text;
-
-      $span = $('#footer span#todo-count:first');
-      text = $span.text();
-
-      expect(text).toBe('1 item left');
-
-    });
-
-    it ('contains a ul#filters element containing a list of 3 filters', function() {
-      
-      var $ul,
-        length;
-
-      $ul = $('#footer ul#filters:first');
-      length = $ul.find('li').length;
-
-      expect(length).toBe(3);
-
-    });
-
-  });
-
-});
-*/
 
 /**
  * TodoMVC Project Specs
  *
- * Use `runs` and `waits` to make sure results are run synchroneously
+ * Use `runs` and `waits` to make sure results are run synchronously
  */
 
 describe( 'TodoMVC features.', function(){
-
-	var enterEvent = $.Event('keypress', { which: 13, keyCode: 13 });
+    
+    var keydownEvent = $.Event('keydown', { which: 13, keyCode: 13 });
+	var keypressEvent = $.Event('keypress', { which: 13, keyCode: 13 });
+	var keyupEvent = $.Event('keyup', { which: 13, keyCode: 13 });
 	var todoTitle = 'Foo Bar Todo';
 
 	describe( 'Todo creation:', function() {
@@ -187,7 +21,11 @@ describe( 'TodoMVC features.', function(){
 
 		it( 'should allow creating a new todo' , function() {
 			runs( function() {
-				$( '#new-todo' ).val( todoTitle ).trigger( enterEvent );
+				$( '#new-todo' )
+					.val( todoTitle )
+					.trigger( keydownEvent )
+					.trigger( keypressEvent )
+					.trigger( keyupEvent );
 			});
 
 			waits( 500 );
@@ -202,7 +40,11 @@ describe( 'TodoMVC features.', function(){
 				beforeCount = $( '#todo-list li' ).length;
 
 			runs( function(){
-				$( '#new-todo' ).val( '   ' ).trigger( enterEvent );
+				$( '#new-todo' )
+					.val( '   ' )
+					.trigger( keydownEvent )
+					.trigger( keypressEvent )
+					.trigger( keyupEvent );
 			});
 
 			waits( 100 );
@@ -220,8 +62,11 @@ describe( 'TodoMVC features.', function(){
 				postTitle = ' to be completed';
 
 			runs( function(){
-				$( '#new-todo' ).val( todoTitle + postTitle ).trigger( enterEvent );
-			});
+				$( '#new-todo' )
+					.val( todoTitle + postTitle )
+					.trigger( keydownEvent )
+					.trigger( keypressEvent )
+					.trigger( keyupEvent );
 
 			waits( 100 );
 
@@ -240,8 +85,11 @@ describe( 'TodoMVC features.', function(){
 				postTitle = ' to be completed';
 
 			runs( function(){
-				$( '#new-todo' ).val( todoTitle + postTitle ).trigger( enterEvent );
-			});
+				$( '#new-todo' )
+					.val( todoTitle + postTitle )
+					.trigger( keydownEvent )
+					.trigger( keypressEvent )
+					.trigger( keyupEvent );
 
 			waits( 100 );
 
@@ -263,7 +111,11 @@ describe( 'TodoMVC features.', function(){
 				postTitle = ' to be deleted';
 
 			runs( function(){
-				$( '#new-todo' ).val( todoTitle + postTitle ).trigger( enterEvent );
+				$( '#new-todo' )
+					.val( todoTitle + postTitle )
+					.trigger( keydownEvent )
+					.trigger( keypressEvent )
+					.trigger( keyupEvent );
 			});
 
 			waits( 100 );

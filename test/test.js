@@ -69,5 +69,5 @@ page.onLoadFinished = function() {
       pageindex++;
 
       loadInProgress = false;
-   }, 200);
+   }, 750);
 }
