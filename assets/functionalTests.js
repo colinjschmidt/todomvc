@@ -24,7 +24,9 @@ describe( 'TodoMVC features.', function() {
 					.val( todoTitle )
 					.trigger( keydownEvent )
 					.trigger( keypressEvent )
-					.trigger( keyupEvent );
+					.trigger( keyupEvent )
+					.parent('form')
+					.submit()
 			});
 
 			waits( 100 );
@@ -43,7 +45,9 @@ describe( 'TodoMVC features.', function() {
 					.val( '   ' )
 					.trigger( keydownEvent )
 					.trigger( keypressEvent )
-					.trigger( keyupEvent );
+					.trigger( keyupEvent )
+					.parent('form')
+					.submit();
 			});
 
 			waits( 100 );
@@ -65,9 +69,11 @@ describe( 'TodoMVC features.', function() {
 					.val( todoTitle + postTitle )
 					.trigger( keydownEvent )
 					.trigger( keypressEvent )
-					.trigger( keyupEvent );
+					.trigger( keyupEvent )
+					.parent('form')
+					.submit();
 			});
-			
+
 			waits( 100 );
 
 			runs( function() {
@@ -89,7 +95,9 @@ describe( 'TodoMVC features.', function() {
 					.val( todoTitle + postTitle )
 					.trigger( keydownEvent )
 					.trigger( keypressEvent )
-					.trigger( keyupEvent );
+					.trigger( keyupEvent )
+					.parent('form')
+					.submit();
 			});
 
 			waits( 100 );
@@ -116,7 +124,9 @@ describe( 'TodoMVC features.', function() {
 					.val( todoTitle + postTitle )
 					.trigger( keydownEvent )
 					.trigger( keypressEvent )
-					.trigger( keyupEvent );
+					.trigger( keyupEvent )
+					.parent('form')
+					.submit();
 			});
 
 			waits( 100 );
