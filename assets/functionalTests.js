@@ -1,11 +1,10 @@
-
 /**
  * TodoMVC Project Specs
  *
- * Use `runs` and `waits` to make sure results are run synchronously
+ * Use `runs` and `waits` to make sure results are run synchroneously
  */
 
-describe( 'TodoMVC features.', function(){
+describe( 'TodoMVC features.', function() {
     
     var keydownEvent = $.Event('keydown', { which: 13, keyCode: 13 });
 	var keypressEvent = $.Event('keypress', { which: 13, keyCode: 13 });
@@ -28,7 +27,7 @@ describe( 'TodoMVC features.', function(){
 					.trigger( keyupEvent );
 			});
 
-			waits( 500 );
+			waits( 100 );
 			
 			runs( function() {
 				expect( $( '#todo-list li' ).text()).toMatch( todoTitle );
@@ -67,7 +66,8 @@ describe( 'TodoMVC features.', function(){
 					.trigger( keydownEvent )
 					.trigger( keypressEvent )
 					.trigger( keyupEvent );
-
+			});
+			
 			waits( 100 );
 
 			runs( function() {
@@ -90,6 +90,7 @@ describe( 'TodoMVC features.', function(){
 					.trigger( keydownEvent )
 					.trigger( keypressEvent )
 					.trigger( keyupEvent );
+			});
 
 			waits( 100 );
 
@@ -129,7 +130,6 @@ describe( 'TodoMVC features.', function(){
 			});
 		});
 	});
-
 });
 
 (function() {
