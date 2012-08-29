@@ -138,14 +138,14 @@
   };
 
   printResults = function() {
-    var success = 1;
+    var success = true;
 
     results.passed.forEach(function(result){
         console.log("\u2714 "+result.title);
     });
 
     results.failed.forEach(function(result){
-      success = 0;
+      success = false;
       console.log("\u2716 " + result.title);
       result.specs.forEach(function(spec){
         if (spec.success === false) {
@@ -154,7 +154,7 @@
       });
     });
 
-    phantom.exit(success);
+    phantom.exit(success ? 0 : 1);
   };
 
   (function(){
