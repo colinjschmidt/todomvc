@@ -115,12 +115,7 @@
       testResults,
       resultCount;
 
-      // Get the app's title from the <title> tag
-      testResults.title = page.evaluate(function () {
-        return $('title:first').text();
-      });
-
-      // Get the test results
+      // Get the test results from the browser html
       testResults = page.evaluate(function() {
         var success = true,
           results   = {success:true, specs:[]},
@@ -145,6 +140,11 @@
 
         results.success = success;
         return results;
+      });
+
+      // Get the app's title from the <title> tag
+      testResults.title = page.evaluate(function () {
+        return $('title:first').text();
       });
 
       // Add the testResults to either the passed or failed results array
